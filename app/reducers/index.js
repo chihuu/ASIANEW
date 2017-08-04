@@ -1,7 +1,11 @@
-import { combineReducers } from 'redux';
-import routes from './routes';
+import {combineReducers} from 'redux'
+import menu from './menuReducer'
+import home from './homeReducer'
 
 export default combineReducers({
-  routes,
-  // ... other reducers
-});
+  home,
+  menu,
+})
+
+export const getMenu = ({menu}) => menu
+export const getHome = ({home}) => home

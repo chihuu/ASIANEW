@@ -9,7 +9,13 @@ import {
   Image,
   InteractionManager
 } from 'react-native';
-import Launch from './components/Launch';
+import { connect, Provider } from 'react-redux';
+import configureStore from './store/configureStore';
+const store = configureStore()
+const RouterWithRedux = connect()(Router);
+
+import Home from './Home';
+import Menu from './Menu';
 import Register from './components/Register';
 import Login from './components/Login';
 import Login2 from './components/Login2';
@@ -23,7 +29,6 @@ import {
   ActionConst,
 } from 'react-native-router-flux';
 import Error from './components/Error';
-import Home from './components/Home';
 import TabView from './components/TabView';
 import TabIcon from './components/TabIcon';
 import EchoView from './components/EchoView';
@@ -46,13 +51,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const reducerCreate = params => {
-  const defaultReducer = new Reducer(params);
-  return (state, action) => {
-    console.log('ACTION:', action);
-    return defaultReducer(state, action);
-  };
-};
+
 const getSceneStyle = () => ({
   backgroundColor: 'white',
   shadowOpacity: 1,
@@ -68,7 +67,7 @@ class App extends Component {
   componentDidMount() {
     //SideMenu.getMoviesFromApi();
     let menu = SideMenu.getMoviesFromApi().done();
-console.log(menu);
+
     InteractionManager.runAfterInteractions(() => {
       this.setState({loading: false})
     });
@@ -97,50 +96,52 @@ console.log(menu);
     if (this.state.loading) {
       return <View><Text>Loading...</Text></View>;
     }
-console.log(this.props);
+
     return (
-      <Router createReducer={reducerCreate} tintColor='red' getSceneStyle={getSceneStyle}>
-        <Scene overlay>
-          <Scene key="messageBar" component={MessageBar} />
-          <Scene key="modal" modal hideNavBar initial>
-            <Scene key="lightbox" lightbox leftButtonTextStyle={{color: 'green'}} backButtonTextStyle={{color: 'red'}} initial>
-              <Scene key="root" hideNavBar hideTabBar>
+      <Provider store={store}>
+        <RouterWithRedux>
+          <Scene overlay>
+            <Scene key="messageBar" component={MessageBar} />
+            <Scene key="modal" modal hideNavBar initial>
+              <Scene key="lightbox" lightbox leftButtonTextStyle={{color: 'green'}} backButtonTextStyle={{color: 'red'}} initial>
+                <Scene key="root" hideNavBar hideTabBar>
 
-                <Scene key="drawer" drawer contentComponent={TabView} open={false} initial title="Logo">
-                  <Scene key='drawerChildrenWrapper'>
-                    <Scene key="launch" component={Launch} {...navBarButtons} />
-                    <Scene key="search" component={Search} />
+                  <Scene key="drawer" drawer contentComponent={Menu} open={false} initial title="Logo">
+                    <Scene key='drawerChildrenWrapper'>
+                      <Scene key="home" component={Home} {...navBarButtons} />
+                      <Scene key="search" component={Search} />
+                    </Scene>
                   </Scene>
-                </Scene>
 
+                </Scene>
+                <Scene key="error" component={Error}/>
               </Scene>
-              <Scene key="error" component={Error}/>
-            </Scene>
-            <Scene key="login">
-              <Scene key="loginModal" component={Login} title="Login"
-                     onEnter={()=>console.log('onEnter')}
-                     onExit={()=>console.log('onExit')}
-                     leftTitle="Cancel" onLeft={Actions.pop}/>
-              <Scene
-                key="loginModal2"
-                component={Login2}
-                title="Login2"
-                backTitle="Back"
-                panHandlers={null}
-                duration={1}
-              />
-              <Scene
-                key="loginModal3"
-                hideNavBar
-                component={Login3}
-                title="Login3"
-                panHandlers={null}
-                duration={1}
-              />
+              <Scene key="login">
+                <Scene key="loginModal" component={Login} title="Login"
+                       onEnter={()=>console.log('onEnter')}
+                       onExit={()=>console.log('onExit')}
+                       leftTitle="Cancel" onLeft={Actions.pop}/>
+                <Scene
+                  key="loginModal2"
+                  component={Login2}
+                  title="Login2"
+                  backTitle="Back"
+                  panHandlers={null}
+                  duration={1}
+                />
+                <Scene
+                  key="loginModal3"
+                  hideNavBar
+                  component={Login3}
+                  title="Login3"
+                  panHandlers={null}
+                  duration={1}
+                />
+              </Scene>
             </Scene>
           </Scene>
-        </Scene>
-      </Router>
+        </RouterWithRedux>
+      </Provider>
     );
   }
 

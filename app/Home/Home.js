@@ -1,5 +1,6 @@
-import React from 'react';
-import {View, Text, StyleSheet} from "react-native";
+import React, { Component, PropTypes } from 'react';
+import {View, Text, StyleSheet, ActivityIndicator} from "react-native";
+import { connect } from 'react-redux';
 import Button from "react-native-button";
 import {Actions} from "react-native-router-flux";
 import { MessageBarAlert, MessageBarManager } from 'react-native-message-bar';
@@ -15,20 +16,35 @@ const styles = StyleSheet.create({
   }
 });
 
-class Launch extends React.Component {
-  // 
-  // componentDidMount() {
-  //   Actions.refresh({
-  //     rightButtonIconStyle: { width: 22, height: 22 },
-  //     rightButtonImage: require('../images/search.png'),
-  //     onRight: () => {console.log(123)},
-  //   });
-  // }
+export default class Home extends React.Component {
 
-  render(){
-    console.log("Launch RENDER");
+  static propTypes = {
+    routes: PropTypes.object,
+  };
+
+
+  componentDidMount() {
+    const { itemsFetchData } = this.props;
+    itemsFetchData();
+    // Actions.refresh({
+    //   rightButtonIconStyle: { width: 22, height: 22 },
+    //   rightButtonImage: require('../images/search.png'),
+    //   onRight: () => {console.log(123)},
+    // });
+  }
+
+  render() {
+
+    if(this.props.isFetching) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator color="#000000" size="large" />
+        </View>
+      );
+    }
+
     return (
-      <View {...this.props}  style={styles.container}>
+      <View style={styles.container}>
         <Text>Launch page</Text>
         <Button onPress={()=>Actions.login({data:"Custom data", title:"Custom title" })}>Go to Login page</Button>
         <Button onPress={()=>Actions.register()}>Go to Register page</Button>
@@ -46,5 +62,3 @@ class Launch extends React.Component {
     );
   }
 }
-
-module.exports = Launch;
