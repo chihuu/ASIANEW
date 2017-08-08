@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Button from "react-native-button";
 import {Actions} from "react-native-router-flux";
 import { MessageBarAlert, MessageBarManager } from 'react-native-message-bar';
+import Slider from './Slider';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,8 +35,9 @@ export default class Home extends React.Component {
   }
 
   render() {
+    const {isFetching, payload} = this.props;
 
-    if(this.props.isFetching) {
+    if(isFetching) {
       return (
         <View style={styles.container}>
           <ActivityIndicator color="#000000" size="large" />
@@ -45,6 +47,7 @@ export default class Home extends React.Component {
 
     return (
       <View style={styles.container}>
+        { (payload.home.banners && payload.home.banners.length > 0) && <Slider data={payload.home.banners} /> }
         <Text>Launch page</Text>
         <Button onPress={()=>Actions.login({data:"Custom data", title:"Custom title" })}>Go to Login page</Button>
         <Button onPress={()=>Actions.register()}>Go to Register page</Button>

@@ -7,7 +7,9 @@ import {
   View,
   TouchableOpacity,
   Image,
-  InteractionManager
+  InteractionManager,
+  NetInfo,
+  Alert
 } from 'react-native';
 import { connect, Provider } from 'react-redux';
 import configureStore from './store/configureStore';
@@ -35,7 +37,7 @@ import EchoView from './components/EchoView';
 import Button from 'react-native-button';
 import MessageBar from './components/MessageBar';
 import Search from './components/Search';
-import Authorization from './common/Authorization';
+import { Authorization, General, Messages } from './common';
 import SideMenu from './models/SideMenu';
 
 const styles = StyleSheet.create({
@@ -65,32 +67,22 @@ class App extends Component {
   }
 
   componentDidMount() {
-    //SideMenu.getMoviesFromApi();
-    let menu = SideMenu.getMoviesFromApi().done();
+    NetInfo.isConnected.addEventListener('change', this._handleConnectionChange);
 
     InteractionManager.runAfterInteractions(() => {
       this.setState({loading: false})
     });
   }
 
-  // getMoviesFromApi() {
-  //    const authorization = Authorization.generate();
-  //
-  //    return fetch('http://ottapi.com/v1.7/ntm/home/menu', {
-  //                                   method: 'GET',
-  //                                   headers: {
-  //                                     'DateTime': authorization.DateTime,
-  //                                     'RequestToken': authorization.RequestToken
-  //                                   }
-  //                                 })
-  //       .then((response) => response.json())
-  //       .then((responseJson) => {
-  //         return responseJson;
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //     });
-  //  }
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('change', this._handleConnectionChange);
+  }
+
+  _handleConnectionChange = (isConnected) => {
+    if(!isConnected) {
+      Actions.error(Messages.ERROR_NETWORK);
+    }
+  };
 
   render() {
     if (this.state.loading) {
