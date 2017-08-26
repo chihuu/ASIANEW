@@ -1,34 +1,38 @@
-import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../private/constants'
+import {
+  FETCHING_DATA_HOME,
+  FETCHING_DATA_HOME_SUCCESS,
+  FETCHING_DATA_HOME_FAILURE
+} from "../private/constants";
 
 const initialState = {
-  home: {},
+  payload: {},
   dataFetched: false,
   isFetching: true,
   error: false
-}
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCHING_DATA:
+    case FETCHING_DATA_HOME:
       return {
         ...state,
-        isFetching: true
-      }
-    case FETCHING_DATA_SUCCESS:
+        isFetching: action.isFetching
+      };
+    case FETCHING_DATA_HOME_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.isFetching,
         payload: {
-          home: action.items
+          dataHome: action.items
         }
-      }
-    case FETCHING_DATA_FAILURE:
+      };
+    case FETCHING_DATA_HOME_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isFetching: action.isFetching,
         error: true
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};

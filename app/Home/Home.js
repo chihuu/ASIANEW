@@ -1,67 +1,72 @@
-import React, { Component, PropTypes } from 'react';
-import {View, Text, StyleSheet, ActivityIndicator} from "react-native";
-import { connect } from 'react-redux';
-import Button from "react-native-button";
-import {Actions} from "react-native-router-flux";
-import { MessageBarAlert, MessageBarManager } from 'react-native-message-bar';
-import Slider from './Slider';
+"use strict";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "transparent",
-    borderWidth: 2,
-    borderColor: 'red',
+import React, { PropTypes, Component } from "react";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  AsyncStorage,
+  ScrollView,
+  InteractionManager,
+  Dimensions,
+  Image
+} from "react-native";
+import Slider from "./Slider";
+import ListItem from "./ListItem";
+import ListItemListen from "./ListItemListen";
+import styles from "../styles/Styles";
+
+class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      width: 0,
+      imageLoading: true,
+      loading: false
+    };
   }
-});
 
-export default class Home extends React.Component {
-
-  static propTypes = {
-    routes: PropTypes.object,
-  };
-
-
-  componentDidMount() {
+  componentWillMount() {
     const { itemsFetchData } = this.props;
     itemsFetchData();
-    // Actions.refresh({
-    //   rightButtonIconStyle: { width: 22, height: 22 },
-    //   rightButtonImage: require('../images/search.png'),
-    //   onRight: () => {console.log(123)},
-    // });
   }
 
-  render() {
-    const {isFetching, payload} = this.props;
+  // componentWillUnmount() {
+  //   const { destroyHome } = this.props;
+  //   destroyHome();
+  // }
 
-    if(isFetching) {
-      return (
-        <View style={styles.container}>
-          <ActivityIndicator color="#000000" size="large" />
-        </View>
-      );
-    }
+  render() {
+    console.log(this.props);
+    const { payload, height, isFetching } = this.props;
 
     return (
       <View style={styles.container}>
-        { (payload.home.banners && payload.home.banners.length > 0) && <Slider data={payload.home.banners} /> }
-        <Text>Launch page</Text>
-        <Button onPress={()=>Actions.login({data:"Custom data", title:"Custom title" })}>Go to Login page</Button>
-        <Button onPress={()=>Actions.register()}>Go to Register page</Button>
-        <Button onPress={()=>Actions.error("Error message")}>Popup error</Button>
-        <Button onPress={()=>MessageBarManager.showAlert({
-          title: 'Your alert title goes here',
-          message: 'Your alert message goes here',
-          alertType: 'success',
-          // See Properties section for full customization
-          // Or check `index.ios.js` or `index.android.js` for a complete example
-        })}>MessageBar alert</Button>
-        <Button onPress={()=>Actions.tabbar()}>Go to TabBar page</Button>
-        <Button onPress={()=>Actions.pop()}>back</Button>
+        {!isFetching && payload.dataHome
+          ? <ScrollView style={{ flex: 1, height: height }}>
+              <Slider
+                data={payload.dataHome.banners}
+                {...this.props}
+                screenProps={this.props._layout}
+              />
+              <ListItem
+                data={payload.dataHome.view}
+                {...this.props}
+                screenProps={this.props._layout}
+              />
+              <ListItemListen
+                data={payload.dataHome.listen}
+                {...this.props}
+                screenProps={this.props._layout}
+              />
+            </ScrollView>
+          : <View style={[styles.centering, styles.waiting]}>
+              <ActivityIndicator size="small" color="white" />
+            </View>}
       </View>
     );
   }
 }
+
+export default Home;
