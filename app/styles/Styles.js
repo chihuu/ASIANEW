@@ -471,6 +471,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 5,
+    flex: 1,
     zIndex: 1000
   },
   playerAudioContainer: {
@@ -1036,7 +1037,7 @@ export default StyleSheet.create({
     margin: 20
   },
 
-  line: { borderWidth: 0.5, padding: 0, height: 0.1 },
+  line: { padding: 0, height: 0.1 },
   holder: {
     height: 16,
     width: 16,

@@ -73,7 +73,6 @@ export default class Progress extends Component {
   }
 
   _onLayout = event => {
-    console.log(event.nativeEvent.layout.width);
     this.setState({
       width: event.nativeEvent.layout.width - radiusOfHolder * 2,
       widthLayout: event.nativeEvent.layout.width,
@@ -138,7 +137,7 @@ export default class Progress extends Component {
       categoryId,
       _layout
     } = this.props;
-    console.log(this.props);
+
     return (
       !hideProgress &&
       <View style={{ flex: 1 }}>
@@ -166,6 +165,7 @@ export default class Progress extends Component {
                 top: moving ? radiusOfActiveHolder : radiusOfHolder
               }}
             >
+              {console.log(percent)}
               <TouchableOpacity
                 style={[styles.line, { flex: percent, borderColor: "#45cbe2" }]}
                 onPress={this.onLinePressed.bind(this)}
