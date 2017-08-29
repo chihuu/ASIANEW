@@ -3,6 +3,10 @@ package com.asia;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.corbt.keepawake.KCKeepAwakePackage;
+import com.github.yamill.orientation.OrientationPackage;
+import com.brentvatne.react.ReactVideoPackage;
+import com.googlecast.GoogleCastPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -26,6 +30,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new KCKeepAwakePackage(),
+            new OrientationPackage(),
+            new ReactVideoPackage(),
+            new GoogleCastPackage(),
             new FBSDKPackage(),
             new RNFetchBlobPackage(),
             new VectorIconsPackage()

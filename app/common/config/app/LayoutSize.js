@@ -16,6 +16,11 @@ export function getSize(width, height) {
   const newHeightCategory = (width - 21) * 0.5 / 16 * 9;
   const newWidthCategoryListen = (width - 35) / 3;
   const newHeightCategoryListen = (width - 35) / 3 / 16 * 9;
+  const newWidthContainerImageSize = (width - 14) * 0.5;
+  const newHeightContainerImageSize = (width - 14) * 0.5 / 16 * 9;
+  const newWidthTimeLines = width / 2 - 20;
+  const newHeightTimeLines = (width / 2 - 20) / 16 * 9;
+  const newWidthProgress = width / 32 * 9 - 10;
 
   return {
     size: { width: width, height: newHeightSlider },
@@ -45,7 +50,15 @@ export function getSize(width, height) {
     imageDevice: newWidthDevices + "x" + newHeightDevices,
     imageDeviceLanscape: height + "x" + width,
     width: width,
-    height: height
+    height: height,
+
+    containerImageSize: {
+      width: newWidthContainerImageSize,
+      height: newHeightContainerImageSize
+    },
+    newWidthTimeLines: newWidthTimeLines,
+    newHeightTimeLines: newHeightTimeLines,
+    newWidthProgress: newWidthProgress
   };
 }
 
@@ -60,6 +73,11 @@ export function getSizeSmall(width, height) {
   const newHeightCategory = (width - 21) * 0.5 / 16 * 9;
   const newWidthCategoryListen = (width - 28) * 0.33;
   const newHeightCategoryListen = (width - 14) * 0.33 / 16 * 9;
+  const newWidthContainerImageSize = (width - 14) * 0.5;
+  const newHeightContainerImageSize = (width - 14) * 0.5 / 16 * 9;
+  const newWidthTimeLines = width / 2 - 20;
+  const newHeightTimeLines = (width / 2 - 20) / 16 * 9;
+  const newWidthProgress = width / 32 * 9 - 10;
 
   return {
     sizeContainer: { width: newWidth, height: newHeight + 15 },
@@ -88,6 +106,13 @@ export function getSizeSmall(width, height) {
     imageDevice: newWidthDevices + "x" + newHeightDevices,
     imageDeviceLanscape: height + "x" + width,
     width: width,
-    height: height
+    height: height,
+    containerImageSize: {
+      width: newWidthContainerImageSize,
+      height: newHeightContainerImageSize
+    },
+    newWidthTimeLines: newWidthTimeLines,
+    newHeightTimeLines: newHeightTimeLines,
+    newWidthProgress: newWidthProgress
   };
 }

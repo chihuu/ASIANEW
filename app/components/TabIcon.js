@@ -1,10 +1,5 @@
-import React, { PropTypes } from "react";
-import { Text, ViewPropTypes } from "react-native";
-
-const propTypes = {
-  selected: ViewPropTypes.bool,
-  title: ViewPropTypes.string
-};
+import React from "react";
+import { Text } from "react-native";
 
 const TabIcon = props => {
   return (
@@ -13,7 +8,5 @@ const TabIcon = props => {
     </Text>
   );
 };
-
-TabIcon.PropTypes = propTypes;
 
 export default TabIcon;

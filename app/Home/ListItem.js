@@ -17,6 +17,7 @@ import {
 import { CachedImage } from "react-native-img-cache";
 import { _ } from "lodash";
 import styles from "../styles/Styles";
+import { Actions } from "react-native-router-flux";
 
 export default class ListItem extends Component {
   constructor(props) {
@@ -175,9 +176,10 @@ export default class ListItem extends Component {
 
   handleNavButtonPress = idChild => {
     const { listAudio } = this.props;
-    listAudio({
-      showAudio: false
-    });
+    // listAudio({
+    //   showAudio: false
+    // });
+    Actions.detail({ idChild: idChild });
     // navigator.push({
     //   id: 5,
     //   refView: "Detail",

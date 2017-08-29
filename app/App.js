@@ -22,6 +22,7 @@ import Login from "./Login";
 import Register from "./Register/Register";
 import Login2 from "./components/Login2";
 import Login3 from "./components/Login3";
+import Detail from "./Detail";
 import navBarButtons from "./components/NavBarButtons";
 import { appLayoutAndroid } from "./common/config";
 import {
@@ -49,7 +50,11 @@ class App extends Component {
   state = {
     loading: true,
     isLogin: false,
-    userInfo: null
+    userInfo: null,
+    dataAudio: {
+      showAudio: false,
+      isPlaylist: false
+    }
   };
 
   componentDidMount() {
@@ -92,8 +97,12 @@ class App extends Component {
     this.setState(userInfo);
   };
 
+  listAudio = items => {
+    this.setState({
+      dataAudio: items
+    });
+  };
   render() {
-    console.log(this.props);
     const { isLogin, userInfo } = this.state;
 
     if (this.state.loading) {
@@ -128,6 +137,7 @@ class App extends Component {
                     userInfo={userInfo}
                     setUserInfo={this.setUserInfo}
                     isLogin={isLogin}
+                    listAudio={this.listAudio}
                   >
                     <Scene key="drawerChildrenWrapper">
                       <Scene
@@ -137,8 +147,18 @@ class App extends Component {
                         _layout={_layout}
                         userInfo={userInfo}
                         setUserInfo={this.setUserInfo}
+                        listAudio={this.listAudio}
                       />
                       <Scene key="search" component={Search} />
+                      <Scene
+                        key="detail"
+                        component={Detail}
+                        leftTitle="Back"
+                        onLeft={Actions.pop}
+                        title="Detail"
+                        _layout={_layout}
+                        duration={1}
+                      />
                     </Scene>
                   </Scene>
                 </Scene>
@@ -159,14 +179,6 @@ class App extends Component {
                   component={Register}
                   title="Register"
                   backTitle="Back"
-                  panHandlers={null}
-                  duration={1}
-                />
-                <Scene
-                  key="loginModal3"
-                  hideNavBar
-                  component={Login3}
-                  title="Login3"
                   panHandlers={null}
                   duration={1}
                 />

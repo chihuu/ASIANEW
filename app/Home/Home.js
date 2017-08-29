@@ -1,6 +1,6 @@
 "use strict";
 
-import React, { PropTypes, Component } from "react";
+import React, { Component } from "react";
 import {
   View,
   Text,
@@ -32,13 +32,7 @@ class Home extends Component {
     itemsFetchData();
   }
 
-  // componentWillUnmount() {
-  //   const { destroyHome } = this.props;
-  //   destroyHome();
-  // }
-
   render() {
-    console.log(this.props);
     const { payload, height, isFetching } = this.props;
 
     return (

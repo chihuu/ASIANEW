@@ -1,6 +1,6 @@
 "use strict";
 
-import React, { PropTypes, Component } from "react";
+import React, { Component } from "react";
 import {
   StyleSheet,
   View,
@@ -11,95 +11,87 @@ import {
   InteractionManager
 } from "react-native";
 import styles from "../styles/Styles";
-import PlayerVideo from "../player/PlayerVideo";
+import VideoPlayer from "./VideoPlayer";
+import Video from "react-native-video";
+import TabsWrapper from "../components/relate/TabsWrapper";
 
 class Detail extends Component {
   constructor(props) {
     super(props);
+    this.onLoad = this.onLoad.bind(this);
+    this.onProgress = this.onProgress.bind(this);
+    this.onBuffer = this.onBuffer.bind(this);
 
     this.state = {
-      loading: false
+      rate: 1.0,
+      volume: 1.0,
+      paused: false,
+      duration: 0.0,
+      ignoreSilentSwitch: null
     };
   }
 
   componentWillMount() {
-    const { receiveDetail, dataDetail, data } = this.props;
+    const { itemsFetchDataDetail, idChild, payload } = this.props;
 
-    if (parseInt(this.props.idChild) > 0) {
-      receiveDetail(this.props.idChild);
-    } else {
-      this.props.passProps &&
-        this.props.passProps.timelines &&
-        dataDetail(this.props.passProps.timelines.content);
-    }
-
-    this.forceUpdate(this.closeAudio());
-
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({ loading: true });
-    });
+    itemsFetchDataDetail(idChild);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      currentTime: nextProps.currentTime
-    });
+  onLoad(data) {
+    this.setState({ duration: data.duration });
   }
 
-  closeAudio = () => {
-    const { handlePlayerClose } = this.props;
-    handlePlayerClose();
-  };
+  onProgress(data) {
+    this.setState({ currentTime: data.currentTime });
+  }
+
+  onBuffer({ isBuffering }: { isBuffering: boolean }) {
+    this.setState({ isBuffering });
+  }
 
   render() {
     const {
-      data,
+      payload,
       isLogin,
-      navigator,
       fullscreenPlayer,
-      width,
-      height,
-      fullscreen,
+      _layout,
+      isFullscreen,
       imageDeviceLanscape,
+      isFetching,
       chromecastId
     } = this.props;
-    const { loading } = this.state;
 
-    let paddingTop = fullscreen ? 0 : 64;
-    let resizeMode = fullscreen ? "stretch" : "contain";
+    let paddingTop = isFullscreen ? 0 : 64;
+    let resizeMode = isFullscreen ? "stretch" : "contain";
+
+    let backgroundVideo = !isFullscreen
+      ? styles.backgroundVideo
+      : styles.backgroundVideoFull;
+    let backgroundHeightVideo = !isFullscreen
+      ? { height: _layout.width / 16 * 9 }
+      : { height: _layout.height };
+
+    //rending
+    if (isFetching && !payload.listDetail) {
+      return (
+        <View style={[styles.centering, styles.waiting]}>
+          <ActivityIndicator size="small" color="white" />
+        </View>
+      );
+    }
 
     return (
-      <View style={[styles.container, { paddingTop: paddingTop }]}>
-        {loading && data.listDetail
-          ? <PlayerVideo
-              listDetail={data.listDetail}
-              isLogin={isLogin}
-              navigator={navigator}
-              id={5}
-              {...this.state}
-              handleChromecastList={this.handleChromecastList}
-              width={width}
-              height={height}
-              resizeMode={resizeMode}
-              updateVideoCurrentTime={this.updateVideoCurrentTime}
-              dataSource={this.props.data.dataSource}
-              imageDeviceLanscape={imageDeviceLanscape}
-              chromecastId={chromecastId}
-              fullscreenPlayer={fullscreenPlayer}
-              fullscreen={fullscreen}
-              connected={this.props.connected}
-            />
-          : <View style={[styles.centering, styles.waiting]}>
-              <ActivityIndicator size="small" color="white" />
-            </View>}
+      <View style={[styles.container]}>
+        <VideoPlayer
+          payload={payload}
+          _layout={_layout}
+          backgroundVideo={backgroundVideo}
+          backgroundHeightVideo={backgroundHeightVideo}
+        />
+        {!isFullscreen && <TabsWrapper {...this.props} />}
       </View>
     );
   }
 }
-
-Detail.propTypes = {
-  navigator: PropTypes.object,
-  navigate: PropTypes.func
-};
 
 export default Detail;

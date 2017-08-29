@@ -5,7 +5,9 @@ import AddPlaylistButton from "./button/AddPlaylistButton";
 import AddPlaylistModalButton from "./button/AddPlaylistModalButton";
 import LoginButton from "./button/LoginButton";
 import FBLoginButton from "./button/FBLoginButton";
-
+import ProgressLive from "./media/ProgressLive";
+import Progress from "./media/Progress";
+import ProgressChromecast from "./media/ProgressChromecast";
 import ModalPlaylist from "./playlist/ModalPlaylist";
 import ModalCreatePlaylist from "./playlist/ModalCreatePlaylist";
 import ModalMessage from "./playlist/ModalMessage";
@@ -18,12 +20,15 @@ export {
   Button,
   AddPlaylistButton,
   AddPlaylistModalButton,
+  ProgressLive,
+  ProgressChromecast,
   LoginButton,
   FBLoginButton,
   ModalPlaylist,
   ModalCreatePlaylist,
   ModalMessage,
   ModalEdit,
+  Progress,
   ModalEditDetails,
   ModalDeleteConfirm,
   ModalEditForm

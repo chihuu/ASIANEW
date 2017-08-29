@@ -1,25 +1,9 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ViewPropTypes,
-  ActivityIndicator
-} from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import Button from "react-native-button";
 import { Actions } from "react-native-router-flux";
 import SideMenuContent from "./SideMenuContent";
 import styles from "../styles/Styles";
-
-const contextTypes = {
-  drawer: React.PropTypes.object
-};
-
-const propTypes = {
-  name: ViewPropTypes.string,
-  sceneStyle: ViewPropTypes.style,
-  title: ViewPropTypes.string
-};
 
 class Menu extends React.Component {
   componentWillMount() {
@@ -39,8 +23,5 @@ class Menu extends React.Component {
     return <SideMenuContent {...this.props} />;
   }
 }
-
-Menu.contextTypes = contextTypes;
-Menu.ViewPropTypes = propTypes;
 
 export default Menu;

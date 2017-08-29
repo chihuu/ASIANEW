@@ -1,6 +1,6 @@
 "use strict";
 
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 //import shallowCompare       from 'react-addons-shallow-compare';

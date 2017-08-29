@@ -25,7 +25,6 @@ export default class SideMenuUser extends Component {
   }
 
   renderAvatar() {
-    console.log(this.props);
     let avatar = null;
     if (
       this.props.userInfo &&

@@ -5,8 +5,6 @@ export default StyleSheet.create({
   //Menu
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "transparent"
   },
   containerColumn: {
@@ -440,7 +438,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    backgroundColor: Config.BACKGROUND_BLACK
+    backgroundColor: Config.COLOR_BLACK
   },
   backgroundVideo: {
     position: "absolute",
@@ -551,7 +549,8 @@ export default StyleSheet.create({
   textDuration: {
     color: "#FFFFFF",
     fontSize: 14,
-    width: 70
+    width: 70,
+    marginLeft: 5
   },
   startDuration: {
     zIndex: 2
@@ -1208,5 +1207,14 @@ export default StyleSheet.create({
   },
   tabBarSelectedItemStyle: {
     backgroundColor: "#ddd"
+  },
+  playerProgress: {
+    position: "absolute",
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 5,
+    zIndex: 1000
   }
 });

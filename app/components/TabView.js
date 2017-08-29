@@ -1,18 +1,8 @@
-import React, { Component, PropTypes } from "react";
-import { StyleSheet, Text, View, ViewPropTypes } from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import Button from "react-native-button";
 import { Actions } from "react-native-router-flux";
 import SideMenu from "../models/SideMenu";
-
-const contextTypes = {
-  drawer: React.PropTypes.object
-};
-
-const propTypes = {
-  name: ViewPropTypes.string,
-  sceneStyle: ViewPropTypes.style,
-  title: ViewPropTypes.string
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -27,7 +17,6 @@ const styles = StyleSheet.create({
 
 class TabView extends Component {
   componentDidMount() {
-    console.log(123);
     SideMenu.getMoviesFromApi().done();
   }
 
@@ -110,8 +99,5 @@ class TabView extends Component {
     );
   }
 }
-
-TabView.contextTypes = contextTypes;
-TabView.ViewPropTypes = propTypes;
 
 export default TabView;

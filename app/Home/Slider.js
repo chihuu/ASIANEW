@@ -1,4 +1,4 @@
-import React, { Component, ViewPropTypes } from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import Carousel from "react-native-looped-carousel";
 import Button from "react-native-button";

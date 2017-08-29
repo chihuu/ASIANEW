@@ -1,29 +1,19 @@
-'use strict';
+"use strict";
 
-import React, {
-  PropTypes,
-  Component
-} from 'react';
+import React, { Component } from "react";
 
-import { Alert } from 'react-native';
+import { Alert } from "react-native";
 
 class AppErrorsClass {
-
   showErrors(message) {
-    return (
-      Alert.alert(
-        'Message',
-        message,
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              return false;
-            }
-          },
-        ]
-      )
-    )
+    return Alert.alert("Message", message, [
+      {
+        text: "OK",
+        onPress: () => {
+          return false;
+        }
+      }
+    ]);
   }
 }
 
