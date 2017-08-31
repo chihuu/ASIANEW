@@ -23,6 +23,7 @@ let radiusOfActiveHolder = 9;
 export default class Progress extends Component {
   constructor(props, context, ...args) {
     super(props, context, ...args);
+
     this.state = {
       lineX: new Animated.Value(0),
       slideX: new Animated.Value(0),
@@ -67,6 +68,7 @@ export default class Progress extends Component {
 
   notifyPercentChange(newPercent, paused) {
     let { onNewPercent } = this.props;
+    console.log(onNewPercent);
     if (onNewPercent instanceof Function) {
       onNewPercent(newPercent, paused);
     }
@@ -82,7 +84,7 @@ export default class Progress extends Component {
 
   getHolderStyle() {
     let { moving, slideX, width } = this.state;
-
+    console.log(width);
     if (width > 0) {
       var interpolatedAnimation = slideX.interpolate({
         inputRange: [0, width],
@@ -137,10 +139,10 @@ export default class Progress extends Component {
       categoryId,
       _layout
     } = this.props;
-
+    console.log(percent);
     return (
       !hideProgress &&
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <View style={[styles.playerContainer, styles.row]}>
           <Text
             style={[
@@ -165,7 +167,6 @@ export default class Progress extends Component {
                 top: moving ? radiusOfActiveHolder : radiusOfHolder
               }}
             >
-              {console.log(percent)}
               <TouchableOpacity
                 style={[styles.line, { flex: percent, borderColor: "#45cbe2" }]}
                 onPress={this.onLinePressed.bind(this)}
@@ -226,7 +227,7 @@ export default class Progress extends Component {
                 type="font-awesome"
                 color="#fff"
                 size={22}
-                onPress={() => playOrPauseVideo()}
+                onPress={playOrPauseVideo}
               />
             </View>
           : <View style={[styles.iconPause, { top: _layout.newWidthProgress }]}>
@@ -235,7 +236,7 @@ export default class Progress extends Component {
                 type="font-awesome"
                 color="#fff"
                 size={22}
-                onPress={() => playOrPauseVideo()}
+                onPress={playOrPauseVideo}
               />
             </View>}
 

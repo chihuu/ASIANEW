@@ -4,8 +4,7 @@ import { Config } from "../common/config";
 export default StyleSheet.create({
   //Menu
   container: {
-    flex: 1,
-    backgroundColor: "transparent"
+    flex: 1
   },
   containerColumn: {
     flexDirection: "column",

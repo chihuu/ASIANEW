@@ -23,6 +23,7 @@ export default class extends Component {
     this.onLoad = this.onLoad.bind(this);
     this.onProgress = this.onProgress.bind(this);
     this.onBuffer = this.onBuffer.bind(this);
+    this.playOrPauseVideo = this.playOrPauseVideo.bind(this);
 
     this.state = {
       rate: 1.0,
@@ -66,20 +67,8 @@ export default class extends Component {
   playOrPauseVideo() {
     this.setState({ paused: !this.state.paused });
   }
-
-  displayProgress() {
-    this.setState({ hideProgress: false, isToggle: false });
-
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-
-    this.timeout = setTimeout(() => {
-      this.setState({ hideProgress: true });
-    }, 8000);
-  }
-
   resizeModeControl() {
+    console.log(this.props);
     const { presentFullscreenVideoPlayer, width, height } = this.props;
 
     let isFullscreen = "";
@@ -102,6 +91,17 @@ export default class extends Component {
       });
     });
   }
+  displayProgress() {
+    this.setState({ hideProgress: false, isToggle: false });
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+
+    this.timeout = setTimeout(() => {
+      this.setState({ hideProgress: true });
+    }, 8000);
+  }
 
   getCurrentTimePercentage(currentTime, duration) {
     if (parseFloat(currentTime) > 0 && parseFloat(duration) > 0) {
@@ -122,18 +122,15 @@ export default class extends Component {
 
     const { currentTime, duration } = this.state;
 
-    let paddingTop = isFullscreen ? 0 : 64;
+    let paddingTop = isFullscreen ? 0 : 55;
     let flexCompleted =
       this.getCurrentTimePercentage(currentTime, duration) * 100;
     let flexRemaining =
       (1 - this.getCurrentTimePercentage(currentTime, duration)) * 100;
 
     return (
-      <View style={styles.containerVideo}>
-        <TouchableOpacity
-          style={styles.containerVideo}
-          onPress={() => this.displayProgress()}
-        >
+      <View style={[styles.container, { marginTop: paddingTop }]}>
+        <TouchableOpacity onPress={() => this.displayProgress()}>
           <View style={[backgroundVideo, backgroundHeightVideo]}>
             <Video
               source={{
@@ -143,7 +140,7 @@ export default class extends Component {
               }}
               ref={(ref: Video) => (this.videoPlayer = ref)}
               rate={this.state.rate} // 0 is paused, 1 is normal.
-              volume={1.0} // 0 is muted, 1 is normal.
+              volume={0} // 0 is muted, 1 is normal.
               muted={false} // Mutes the audio entirely.
               paused={this.state.paused} // Pauses playback entirely.
               resizeMode={"contain"} // Fill the whole screen at aspect ratio.

@@ -34,7 +34,6 @@ import {
 } from "react-native-router-flux";
 import Error from "./components/Error";
 import TabView from "./components/TabView";
-import TabIcon from "./components/TabIcon";
 import EchoView from "./components/EchoView";
 import Button from "react-native-button";
 import MessageBar from "./components/MessageBar";

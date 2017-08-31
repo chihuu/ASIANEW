@@ -81,12 +81,13 @@ class Detail extends Component {
     }
 
     return (
-      <View style={[styles.container]}>
+      <View style={styles.container}>
         <VideoPlayer
           payload={payload}
           _layout={_layout}
           backgroundVideo={backgroundVideo}
           backgroundHeightVideo={backgroundHeightVideo}
+          isFullscreen={isFullscreen}
         />
         {!isFullscreen && <TabsWrapper {...this.props} />}
       </View>
