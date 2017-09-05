@@ -84,7 +84,7 @@ export default class Progress extends Component {
 
   getHolderStyle() {
     let { moving, slideX, width } = this.state;
-    console.log(width);
+
     if (width > 0) {
       var interpolatedAnimation = slideX.interpolate({
         inputRange: [0, width],
@@ -139,10 +139,10 @@ export default class Progress extends Component {
       categoryId,
       _layout
     } = this.props;
-    console.log(percent);
+
     return (
       !hideProgress &&
-      <View style={styles.container}>
+      <View style={{ flex: 1 }}>
         <View style={[styles.playerContainer, styles.row]}>
           <Text
             style={[
@@ -168,13 +168,25 @@ export default class Progress extends Component {
               }}
             >
               <TouchableOpacity
-                style={[styles.line, { flex: percent, borderColor: "#45cbe2" }]}
+                style={[
+                  styles.line,
+                  {
+                    flex: percent,
+                    borderColor: "#45cbe2",
+                    backgroundColor: "#45cbe2"
+                  }
+                ]}
                 onPress={this.onLinePressed.bind(this)}
               />
+
               <TouchableOpacity
                 style={[
                   styles.line,
-                  { flex: 100 - percent, borderColor: "white" }
+                  {
+                    flex: 100 - percent,
+                    borderColor: "white",
+                    backgroundColor: "#FFFFFF"
+                  }
                 ]}
                 onPress={this.onLinePressed.bind(this)}
               />
@@ -204,9 +216,9 @@ export default class Progress extends Component {
               </View>
             : null}
 
-          <View style={[styles.iconResize, { marginLeft: 7 }]}>
+          <View style={styles.iconResize}>
             <TouchableOpacity
-              onPress={() => resizeModeControl()}
+              onPress={resizeModeControl}
               style={{ padding: 5 }}
             >
               <Image
@@ -247,7 +259,7 @@ export default class Progress extends Component {
               type="font-awesome"
               color="#fff"
               size={22}
-              onPress={() => onInfo()}
+              onPress={onInfo}
             />
           </View>}
       </View>

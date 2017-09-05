@@ -24,7 +24,7 @@ export default class extends Component {
     this.onProgress = this.onProgress.bind(this);
     this.onBuffer = this.onBuffer.bind(this);
     this.playOrPauseVideo = this.playOrPauseVideo.bind(this);
-
+    this.resizeModeControl = this.resizeModeControl.bind(this);
     this.state = {
       rate: 1.0,
       volume: 1.0,
@@ -32,7 +32,9 @@ export default class extends Component {
       duration: 0.0,
       currentTime: 0.0,
       hideProgress: false,
-      ignoreSilentSwitch: null
+      ignoreSilentSwitch: null,
+      isToggle: false,
+      hideProgress: false
     };
   }
 
@@ -64,12 +66,18 @@ export default class extends Component {
     this.setState({ isBuffering });
   }
 
+  onInfo() {
+    this.setState({ isToggle: !this.state.isToggle, hideProgress: true });
+  }
+
   playOrPauseVideo() {
+    console.log(this.props);
     this.setState({ paused: !this.state.paused });
   }
+
   resizeModeControl() {
-    console.log(this.props);
-    const { presentFullscreenVideoPlayer, width, height } = this.props;
+    const { presentFullscreenVideoPlayer } = this.props;
+    const { paused } = this.state;
 
     let isFullscreen = "";
 
@@ -91,6 +99,7 @@ export default class extends Component {
       });
     });
   }
+
   displayProgress() {
     this.setState({ hideProgress: false, isToggle: false });
 
@@ -119,7 +128,7 @@ export default class extends Component {
       isFullscreen,
       _layout
     } = this.props;
-
+    let { isToggle } = this.state;
     const { currentTime, duration } = this.state;
 
     let paddingTop = isFullscreen ? 0 : 55;
@@ -165,6 +174,7 @@ export default class extends Component {
               remain={flexRemaining}
               isFullscreen={isFullscreen}
               _layout={_layout}
+              onInfo={this.onInfo}
               {...this.state}
               // duration={duration}
               // currentTime={currentTime}
@@ -172,7 +182,7 @@ export default class extends Component {
               // remain={flexRemaining}
               // onNewPercent={this.onProgressChanged.bind(this)}
               // fullscreen={fullscreen}
-              // onInfo={this.onInfo}
+
               // isTimeline={isTimeline}
               // hideProgress={hideProgress}
             />

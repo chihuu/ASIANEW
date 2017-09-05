@@ -45,6 +45,7 @@ import styles from "./styles/Styles";
 const { height, width } = Dimensions.get("window");
 const _layout = appLayout(width, height);
 
+console.disableYellowBox = true;
 class App extends Component {
   state = {
     loading: true,

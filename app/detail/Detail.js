@@ -57,6 +57,7 @@ class Detail extends Component {
       _layout,
       isFullscreen,
       imageDeviceLanscape,
+      presentFullscreenVideoPlayer,
       isFetching,
       chromecastId
     } = this.props;
@@ -87,6 +88,7 @@ class Detail extends Component {
           _layout={_layout}
           backgroundVideo={backgroundVideo}
           backgroundHeightVideo={backgroundHeightVideo}
+          presentFullscreenVideoPlayer={presentFullscreenVideoPlayer}
           isFullscreen={isFullscreen}
         />
         {!isFullscreen && <TabsWrapper {...this.props} />}

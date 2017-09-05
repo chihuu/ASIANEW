@@ -1036,7 +1036,7 @@ export default StyleSheet.create({
     margin: 20
   },
 
-  line: { padding: 0, height: 0.1 },
+  line: { padding: 0, height: 1 },
   holder: {
     height: 16,
     width: 16,
