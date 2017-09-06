@@ -15,7 +15,7 @@ let top = width / 16 * 9 + 50;
 export default class TabInformations extends Component {
   renderContent(key, text, border = false) {
     return (
-      <View style={[styles.row]}>
+      <View style={[styles.row, { paddingLeft: 5 }]}>
         <Text style={[styles.black, styles.textInfo]}>
           {key}:
         </Text>
@@ -51,7 +51,7 @@ export default class TabInformations extends Component {
         showsVerticalScrollIndicator={false}
       >
         <View>
-          <View style={styles.row}>
+          <View style={[styles.row, { paddingLeft: 5, paddingTop: 5 }]}>
             <Text style={styles.textInfoHeader}>
               {listDetail.content.name && listDetail.content.name}
             </Text>

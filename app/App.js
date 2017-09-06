@@ -24,7 +24,6 @@ import Login2 from "./components/Login2";
 import Login3 from "./components/Login3";
 import Detail from "./Detail";
 import navBarButtons from "./components/NavBarButtons";
-import { appLayoutAndroid } from "./common/config";
 import {
   Scene,
   Router,
@@ -40,12 +39,16 @@ import MessageBar from "./components/MessageBar";
 import Search from "./components/Search";
 import { Authorization, General, Messages } from "./common";
 import SideMenu from "./models/SideMenu";
-import { appLayout } from "./common/config";
+import Category from "./Category";
+import VideoPlayer from "./Detail/VideoPlayer";
+import { appLayout, test } from "./common/config";
 import styles from "./styles/Styles";
 const { height, width } = Dimensions.get("window");
-const _layout = appLayout(width, height);
+
+import Orientation from "react-native-orientation";
 
 console.disableYellowBox = true;
+
 class App extends Component {
   state = {
     loading: true,
@@ -54,10 +57,25 @@ class App extends Component {
     dataAudio: {
       showAudio: false,
       isPlaylist: false
-    }
+    },
+    _layout: null
   };
 
+  componentWillMount() {
+    Orientation.lockToPortrait();
+    const _layout = appLayout(width, height);
+    this.setState({ _layout });
+  }
+
   componentDidMount() {
+    let initial = Orientation.getInitialOrientation();
+
+    if (initial === "LANDSCAPE") {
+      Orientation.lockToPortrait();
+    } else {
+      Orientation.lockToPortrait();
+    }
+
     this.getUserInfo().done();
     NetInfo.isConnected.addEventListener(
       "change",
@@ -112,7 +130,7 @@ class App extends Component {
         </View>
       );
     }
-
+    console.log(this.state);
     return (
       <Provider store={store}>
         <RouterWithRedux>
@@ -144,7 +162,7 @@ class App extends Component {
                         key="home"
                         component={Home}
                         {...navBarButtons}
-                        _layout={_layout}
+                        _layout={this.state._layout}
                         userInfo={userInfo}
                         setUserInfo={this.setUserInfo}
                         listAudio={this.listAudio}
@@ -156,7 +174,19 @@ class App extends Component {
                         leftTitle="Back"
                         onLeft={Actions.pop}
                         title="Detail"
-                        _layout={_layout}
+                        _layout={this.state._layout}
+                        duration={1}
+                      />
+                      <Scene
+                        key="category"
+                        component={Category}
+                        leftTitle="Back"
+                        onLeft={() => {
+                          Actions.pop();
+                          setTimeout(() => Actions.refresh(), 500);
+                        }}
+                        title="Category"
+                        _layout={this.state._layout}
                         duration={1}
                       />
                     </Scene>

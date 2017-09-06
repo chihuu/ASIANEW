@@ -33,7 +33,7 @@ class Detail extends Component {
 
   componentWillMount() {
     const { itemsFetchDataDetail, idChild, payload } = this.props;
-
+    console.log(idChild);
     itemsFetchDataDetail(idChild);
   }
 

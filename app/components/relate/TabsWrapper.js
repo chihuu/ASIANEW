@@ -51,9 +51,15 @@ export default class TabsWrapper extends Component {
       {
         tabBarOptions: {
           activeTintColor: "#e91e63",
-
-          tabStyle: { justifyContent: "flex-start", alignItems: "flex-start" },
-          style: { justifyContent: "flex-start", alignItems: "flex-start" }
+          labelStyle: {
+            fontSize: 12,
+            marginBottom: 15
+          },
+          tabStyle: {
+            width: 100,
+            justifyContent: "flex-start",
+            alignItems: "flex-start"
+          }
         },
         tabBarPosition: "top",
         swipeEnabled: true

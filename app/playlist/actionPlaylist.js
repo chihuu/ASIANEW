@@ -2,18 +2,20 @@ import * as types from "../private/constants";
 
 import * as config from "../common/config";
 
-function receivePlaylistApiSuccess(list) {
+function itemsFetchDataSuccess(items) {
   return {
     type: types.ENTER_PLAYLIST_SUCCESS,
-    list
+    ...items
   };
 }
-function receivePlaylistApiFailure(list) {
+
+function itemsHasErrored(bool) {
   return {
     type: types.ENTER_PLAYLIST_FAILURE,
-    list
+    errorMenu: bool
   };
 }
+
 function destroyPlaylistApiSuccess(list) {
   return {
     type: types.ENTER_PLAYLIST_DESTROY,

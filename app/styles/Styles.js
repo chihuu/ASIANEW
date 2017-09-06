@@ -434,9 +434,7 @@ export default StyleSheet.create({
 
   // Video Player
   containerVideo: {
-    flex: 1,
     justifyContent: "flex-start",
-    alignItems: "flex-start",
     backgroundColor: Config.COLOR_BLACK
   },
   backgroundVideo: {

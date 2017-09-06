@@ -1,7 +1,17 @@
 export default function appLayout(width, height) {
+  let widthLayout = width;
+  let heightLayout = height;
+
+  if (widthLayout > heightLayout) {
+    widthLayout = height;
+    heightLayout = width;
+  }
+
   const _size =
-    width < 375 ? getSizeSmall(width, height) : getSize(width, height);
-  return { width: width, height: height, ..._size };
+    width < 375
+      ? getSizeSmall(widthLayout, heightLayout)
+      : getSize(widthLayout, heightLayout);
+  return { width: widthLayout, height: heightLayout, ..._size };
 }
 
 export function getSize(width, height) {

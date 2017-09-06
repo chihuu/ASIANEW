@@ -16,6 +16,13 @@ import styles from "../styles/Styles";
 import Video from "react-native-video";
 import Orientation from "react-native-orientation";
 import { Progress } from "../components";
+import {
+  Scene,
+  Router,
+  Actions,
+  Reducer,
+  ActionConst
+} from "react-native-router-flux";
 
 export default class extends Component {
   constructor(props) {
@@ -81,6 +88,8 @@ export default class extends Component {
 
     let isFullscreen = "";
 
+    Actions.refresh({ key: "detail", hideNavBar: true });
+
     Orientation.getOrientation(function(err, orientation) {
       if (err) {
         return console.log("Error rotate");
@@ -138,7 +147,7 @@ export default class extends Component {
       (1 - this.getCurrentTimePercentage(currentTime, duration)) * 100;
 
     return (
-      <View style={[styles.container, { marginTop: paddingTop }]}>
+      <View style={[styles.containerVideo, backgroundHeightVideo]}>
         <TouchableOpacity onPress={() => this.displayProgress()}>
           <View style={[backgroundVideo, backgroundHeightVideo]}>
             <Video

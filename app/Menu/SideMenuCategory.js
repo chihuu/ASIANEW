@@ -16,7 +16,7 @@ import {
 } from "react-native";
 import styles from "../styles/Styles";
 import * as viewsActions from "./actions";
-
+import { Actions } from "react-native-router-flux";
 import SideMenuLink from "./SideMenuLink";
 import Panel from "./Panel";
 
@@ -118,6 +118,7 @@ export class SideMenuCategory extends Component {
           idChild={parseInt(id)}
           iconName={iconName}
           iconSize={iconSize}
+          handleNavButtonPress={() => this.handleNavButtonPress(id, isProvider)}
           sideMenuButtonText={name}
         />
       </View>
@@ -158,6 +159,14 @@ export class SideMenuCategory extends Component {
       </View>
     );
   }
+
+  handleNavButtonPress = (idChild, isProvider) => {
+    const { id, handleNavButtonPress } = this.props;
+    //const idChild = data.idChild;
+    //  const refView = "Category";
+    //  handleNavButtonPress(e, { id, idChild, refView, isProvider });
+    Actions.category({ id, idChild, isProvider });
+  };
 }
 
 export default SideMenuCategory;
