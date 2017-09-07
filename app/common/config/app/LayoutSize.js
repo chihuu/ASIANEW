@@ -38,12 +38,12 @@ export function getSize(width, height) {
     listenSizeContainerPopular: { width: width - 14, height: newHeight },
     sizeCategoryContainer: {
       width: newWidthCategory,
-      height: newHeightCategory + 40
+      height: newHeightCategory + 80
     },
     listenSizeContainer: { width: newWidthListen, height: newWidthListen + 15 },
     listenSizeCategoryContainer: {
       width: newWidthCategoryListen,
-      height: newWidthCategoryListen + 40
+      height: newWidthCategoryListen + 80
     },
     sizeImage: { width: newWidth, height: newHeight + 15 },
     sizeCategoryImage: { width: newWidthCategory, height: newHeightCategory },
@@ -94,12 +94,12 @@ export function getSizeSmall(width, height) {
     listenSizeContainerPopular: { width: width - 14, height: newHeight },
     sizeCategoryContainer: {
       width: newWidthCategory,
-      height: newHeightCategory + 40
+      height: newHeightCategory + 80
     },
     listenSizeContainer: { width: newWidthListen, height: newWidthListen + 15 },
     listenSizeCategoryContainer: {
       width: newWidthCategoryListen,
-      height: newWidthCategoryListen + 30
+      height: newWidthCategoryListen + 80
     },
     sizeImage: { width: newWidth, height: newHeight },
     sizeCategoryImage: { width: newWidthCategory, height: newHeightCategory },

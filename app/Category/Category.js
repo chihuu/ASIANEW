@@ -19,6 +19,22 @@ import ChildGroupCategory from "./ChildGroupCategory";
 class Category extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      listGroupCategory: null,
+      sizeContainer: 0,
+      listenSizeContainer: 0,
+      sizeImage: 0,
+      listenSizeImage: 0,
+      sizeText: 0,
+      listenSizeText: 0,
+      imageDevice: 0,
+      loading: false,
+      modalVisible: false,
+      modalCreateVisible: false,
+      modalAddContentVisible: false,
+      modalMessage: false,
+      editModalVisible: false
+    };
   }
 
   componentWillMount() {
@@ -36,7 +52,6 @@ class Category extends Component {
 
   renderItems(list) {
     const { _layout } = this.props;
-    const { imageDevice } = this.props._layout;
 
     return list.map((data, i) => {
       return (
@@ -67,13 +82,13 @@ class Category extends Component {
               checkSizeReplaceUrlImage = _.replace(
                 item.image,
                 new RegExp("1280x720", "g"),
-                imageDevice
+                _layout.imageDevice
               );
             } else if (_.includes(item.image, "720x720")) {
               checkSizeReplaceUrlImage = _.replace(
                 item.image,
                 new RegExp("720x720", "g"),
-                imageDevice
+                _layout.imageDevice
               );
             } else {
               checkSizeReplaceUrlImage = item.image;
@@ -93,10 +108,9 @@ class Category extends Component {
                   items={data}
                   image={checkSizeReplaceUrlImage}
                   name={item.name}
-                  sizeContainer={_layout.sizeContainer}
-                  sizeImage={_layout.sizeImage}
+                  sizeContainer={sizeContainer}
+                  sizeImage={sizeImage}
                   sizeText={sizeText}
-                  imageDevice={_layout.imageDevice}
                   _layout={_layout}
                 />
               </View>
@@ -109,7 +123,7 @@ class Category extends Component {
 
   render() {
     const { payload, isFetching } = this.props;
-    console.log(this.props);
+
     if (isFetching && !payload.listCategory) {
       return (
         <View style={[styles.centering, styles.waiting]}>

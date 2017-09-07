@@ -82,7 +82,7 @@ export default StyleSheet.create({
   titleContainer: {
     flexDirection: "column",
     flex: 1,
-    marginTop: 4,
+    marginTop: 5,
     flexWrap: "wrap"
   },
   itemPadding: {
@@ -95,7 +95,8 @@ export default StyleSheet.create({
     color: Config.CONTENT_TITLE_COLOR,
     fontSize: Config.CONTENT_TITLE_FONT_SIZE,
     fontWeight: "bold",
-    overflow: "hidden"
+    overflow: "hidden",
+    flexWrap: "wrap"
   },
   titleActive: {
     color: Config.COLOR_WHITE,
@@ -296,8 +297,8 @@ export default StyleSheet.create({
     flexDirection: "column"
   },
   // thumbnailContainer: {
-  //   marginLeft: 5,
-  //   overflow: 'hidden'
+  //   paddingLeft: 10,
+  //   overflow: "hidden"
   // },
   textCount: {
     color: "#FFFFFF",
@@ -945,7 +946,8 @@ export default StyleSheet.create({
     marginRight: 10
   },
   textCenter: {
-    textAlign: "center"
+    textAlign: "center",
+    alignItems: "center"
   },
   formInput: {
     borderColor: "#ccc",

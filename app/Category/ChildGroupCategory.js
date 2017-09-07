@@ -22,7 +22,7 @@ import { CachedImage } from "react-native-img-cache";
 
 export default class ChildGroupCategory extends Component {
   render() {
-    const { id, _layout } = this.props;
+    const { id } = this.props;
 
     return (
       <TouchableOpacity
@@ -34,19 +34,13 @@ export default class ChildGroupCategory extends Component {
           )}
         activeOpacity={1}
       >
-        <View
-          style={[
-            styles.thumbnailContainer,
-            styles.column,
-            _layout.sizeContainer
-          ]}
-        >
+        <View style={[{ width: 177, height: 300 }]}>
           <CachedImage
             source={{ uri: this.props.image }}
             defaultSource={require("../common/images/common/default_thumbnail.png")}
             style={[
               { justifyContent: "flex-end", alignItems: "flex-end" },
-              _layout.sizeImage,
+              this.props.sizeImage,
               styles.imageBorderRadius
             ]}
             mutable

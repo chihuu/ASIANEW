@@ -166,6 +166,7 @@ class App extends Component {
                         userInfo={userInfo}
                         setUserInfo={this.setUserInfo}
                         listAudio={this.listAudio}
+                        type="reset"
                       />
                       <Scene key="search" component={Search} />
                       <Scene
