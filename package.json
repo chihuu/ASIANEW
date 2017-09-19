@@ -15,6 +15,8 @@
     "react": "^16.0.0-alpha.12",
     "react-addons-shallow-compare": "^15.6.0",
     "react-native": "^0.47.2",
+    "react-native-animatable": "^1.2.3",
+    "react-native-blur": "^3.1.3",
     "react-native-button": "^2.1.0",
     "react-native-cached-image": "^1.3.5",
     "react-native-elements": "^0.16.0",
@@ -27,7 +29,8 @@
     "react-native-message-bar": "^2.0.4",
     "react-native-onesignal": "^3.0.5",
     "react-native-orientation": "^3.0.0",
-    "react-native-router-flux": "^4.0.0-beta.21",
+    "react-native-router-flux": "github:aksonov/react-native-router-flux#2e654ead5b7c97a1f2942f45f844cde5fc1407c3",
+    "react-native-swipeable": "^0.6.0",
     "react-native-swiper": "^1.5.10",
     "react-native-vector-icons": "^4.3.0",
     "react-native-video": "^2.0.0",
@@ -50,9 +53,13 @@
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-navigation)"
     ],
-    "setupFiles": ["./test/setup.js"]
+    "setupFiles": [
+      "./test/setup.js"
+    ]
   },
   "rnpm": {
-    "assets": ["./app/common/fonts"]
+    "assets": [
+      "./app/common/fonts"
+    ]
   }
 }

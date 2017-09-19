@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -25,6 +26,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		159BE8C793344038AFE62AF6 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 442B64663D2547E999480226 /* Foundation.ttf */; };
 		19B62C14D6F94CC0A78C6191 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91BD7AB93A944225832D5D31 /* EvilIcons.ttf */; };
+		22F84E84310A42C5AD7FB32E /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FBD21763A3343C5854F0FFD /* libRNBlur.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -337,6 +339,20 @@
 			remoteGlobalIDString = 9350E0F11CE3B0920041D815;
 			remoteInfo = RCTFBSDK;
 		};
+		D5D6460C1F67D19D00FD615C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97E84D3F147548368BDB28FE /* RNBlur.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A68BD7BC1BC31318005F02DF;
+			remoteInfo = RNBlur;
+		};
+		D5D6460E1F67D19D00FD615C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97E84D3F147548368BDB28FE /* RNBlur.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 64D1BD361EEFE88700F3F219;
+			remoteInfo = "RNBlur-tvOS";
+		};
 		D5D7A34B1F56640100AAAF18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F43FAAC03D8643918509AAD7 /* RCTOneSignal.xcodeproj */;
@@ -385,10 +401,12 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7BB7675F8BC64010A1CB0ADF /* libRCTOrientation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOrientation.a; sourceTree = "<group>"; };
 		7F93A3EE18501239B04E7E11 /* Pods-ASIA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASIA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASIA/Pods-ASIA.debug.xcconfig"; sourceTree = "<group>"; };
+		7FBD21763A3343C5854F0FFD /* libRNBlur.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBlur.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		84A4F4D8415F871D87C87FF3 /* libPods-ASIA.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ASIA.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91BD7AB93A944225832D5D31 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		92E919BD764F44788EF00B31 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		97E84D3F147548368BDB28FE /* RNBlur.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBlur.xcodeproj; path = "../node_modules/react-native-blur/ios/RNBlur.xcodeproj"; sourceTree = "<group>"; };
 		A0715ECDA66C4DF594ACE883 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		A62B47E102814D9ABDBF4465 /* libRCTOneSignal.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOneSignal.a; sourceTree = "<group>"; };
 		B0509A363B9442B6AF3D6EB1 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -446,6 +464,7 @@
 				541FF1FD3F3C481EA98B8776 /* libRCTOrientation.a in Frameworks */,
 				EE985D398792487284EA052F /* libKCKeepAwake.a in Frameworks */,
 				FA34C0F4A69F49EC9697C913 /* libRCTOneSignal.a in Frameworks */,
+				22F84E84310A42C5AD7FB32E /* libRNBlur.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +675,7 @@
 				5E8D74AD4AD74953B0775E7A /* KCKeepAwake.xcodeproj */,
 				F43FAAC03D8643918509AAD7 /* RCTOneSignal.xcodeproj */,
 				B908BDA4D44D40F38EF99CD3 /* GoogleCast.xcodeproj */,
+				97E84D3F147548368BDB28FE /* RNBlur.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -757,6 +777,15 @@
 			isa = PBXGroup;
 			children = (
 				D5C1D8BB1F4FBEFB00846A90 /* libRCTFBSDK.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D5D645E41F67D19D00FD615C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D5D6460D1F67D19D00FD615C /* libRNBlur.a */,
+				D5D6460F1F67D19D00FD615C /* libRNBlur.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -957,6 +986,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = D5D645E41F67D19D00FD615C /* Products */;
+					ProjectRef = 97E84D3F147548368BDB28FE /* RNBlur.xcodeproj */;
 				},
 				{
 					ProductGroup = D5188E3C1F4BE0EB00462DAA /* Products */;
@@ -1237,6 +1270,20 @@
 			remoteRef = D5C1D8BA1F4FBEFB00846A90 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D5D6460D1F67D19D00FD615C /* libRNBlur.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNBlur.a;
+			remoteRef = D5D6460C1F67D19D00FD615C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D5D6460F1F67D19D00FD615C /* libRNBlur.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNBlur.a;
+			remoteRef = D5D6460E1F67D19D00FD615C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D5D7A34C1F56640100AAAF18 /* libRCTOneSignal.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1452,12 +1499,14 @@
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
 					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 					"$(SRCROOT)/../node_modules/react-native-google-cast/ios",
+					"$(SRCROOT)/../node_modules/react-native-blur/ios",
 				);
 				INFOPLIST_FILE = ASIATests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1492,12 +1541,14 @@
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
 					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 					"$(SRCROOT)/../node_modules/react-native-google-cast/ios",
+					"$(SRCROOT)/../node_modules/react-native-blur/ios",
 				);
 				INFOPLIST_FILE = ASIATests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1540,6 +1591,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 					"$(SRCROOT)/../node_modules/react-native-google-cast/ios",
+					"$(SRCROOT)/../node_modules/react-native-blur/ios",
 				);
 				INFOPLIST_FILE = ASIA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1577,6 +1629,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 					"$(SRCROOT)/../node_modules/react-native-google-cast/ios",
+					"$(SRCROOT)/../node_modules/react-native-blur/ios",
 				);
 				INFOPLIST_FILE = ASIA/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1614,11 +1667,13 @@
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
 					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 					"$(SRCROOT)/../node_modules/react-native-google-cast/ios",
+					"$(SRCROOT)/../node_modules/react-native-blur/ios",
 				);
 				INFOPLIST_FILE = "ASIA-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1663,11 +1718,13 @@
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
 					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/RCTOneSignal/**",
 					"$(SRCROOT)/../node_modules/react-native-google-cast/ios",
+					"$(SRCROOT)/../node_modules/react-native-blur/ios",
 				);
 				INFOPLIST_FILE = "ASIA-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1712,6 +1769,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ASIA-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1736,6 +1794,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

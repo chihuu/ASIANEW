@@ -23,7 +23,8 @@ import {
   ModalCreatePlaylist,
   ModalMessage
 } from "../components";
-import ListAll from "../playlist/ListAll";
+
+import { Actions } from "react-native-router-flux";
 
 const { width, height } = Dimensions.get("window");
 const BLOCK_MARGIN = 5;
@@ -110,7 +111,7 @@ export default class ListItemListen extends Component {
           return (
             <TouchableOpacity
               key={key + "_" + index}
-              onPress={this.handleNavButtonPress.bind(this, data.id, data)}
+              onPress={this.handleNavButtonPress.bind(this, data.id)}
               activeOpacity={1}
             >
               <View
@@ -173,13 +174,13 @@ export default class ListItemListen extends Component {
     );
   }
 
-  handleNavButtonPress = (idChild, data) => {
-    const { navigator, listAudio } = this.props;
+  handleNavButtonPress = idChild => {
+    Actions.playerAudio({ idChild });
 
-    listAudio({
-      idChild: idChild,
-      showAudio: true
-    });
+    // listAudio({
+    //   idChild: idChild,
+    //   showAudio: true
+    // });
   };
 
   _setModalVisible = (visible, dataId = null, mode = -1) => {

@@ -78,7 +78,6 @@ export default class extends Component {
   }
 
   playOrPauseVideo() {
-    console.log(this.props);
     this.setState({ paused: !this.state.paused });
   }
 

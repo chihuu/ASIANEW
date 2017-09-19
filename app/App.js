@@ -23,6 +23,7 @@ import Register from "./Register/Register";
 import Login2 from "./components/Login2";
 import Login3 from "./components/Login3";
 import Detail from "./Detail";
+import PlayerAudio from "./PlayerAudio";
 import navBarButtons from "./components/NavBarButtons";
 import {
   Scene,
@@ -115,11 +116,6 @@ class App extends Component {
     this.setState(userInfo);
   };
 
-  listAudio = items => {
-    this.setState({
-      dataAudio: items
-    });
-  };
   render() {
     const { isLogin, userInfo } = this.state;
 
@@ -130,7 +126,7 @@ class App extends Component {
         </View>
       );
     }
-    console.log(this.state);
+
     return (
       <Provider store={store}>
         <RouterWithRedux>
@@ -155,7 +151,6 @@ class App extends Component {
                     userInfo={userInfo}
                     setUserInfo={this.setUserInfo}
                     isLogin={isLogin}
-                    listAudio={this.listAudio}
                   >
                     <Scene key="drawerChildrenWrapper">
                       <Scene
@@ -165,7 +160,6 @@ class App extends Component {
                         _layout={this.state._layout}
                         userInfo={userInfo}
                         setUserInfo={this.setUserInfo}
-                        listAudio={this.listAudio}
                         type="reset"
                       />
                       <Scene key="search" component={Search} />
@@ -175,6 +169,16 @@ class App extends Component {
                         leftTitle="Back"
                         onLeft={Actions.pop}
                         title="Detail"
+                        _layout={this.state._layout}
+                        duration={1}
+                      />
+                      <Scene
+                        key="playerAudio"
+                        component={PlayerAudio}
+                        leftTitle="Back"
+                        onLeft={Actions.pop}
+                        title="Player Audio"
+                        hideNavBar
                         _layout={this.state._layout}
                         duration={1}
                       />
