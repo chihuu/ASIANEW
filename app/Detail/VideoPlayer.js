@@ -16,6 +16,8 @@ import styles from "../styles/Styles";
 import Video from "react-native-video";
 import Orientation from "react-native-orientation";
 import { Progress } from "../components";
+import Icon from "react-native-vector-icons/Ionicons";
+
 import {
   Scene,
   Router,
@@ -157,7 +159,7 @@ export default class extends Component {
               }}
               ref={(ref: Video) => (this.videoPlayer = ref)}
               rate={this.state.rate} // 0 is paused, 1 is normal.
-              volume={0} // 0 is muted, 1 is normal.
+              volume={1} // 0 is muted, 1 is normal.
               muted={false} // Mutes the audio entirely.
               paused={this.state.paused} // Pauses playback entirely.
               resizeMode={"contain"} // Fill the whole screen at aspect ratio.

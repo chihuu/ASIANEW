@@ -72,6 +72,7 @@ class Detail extends Component {
       : { height: _layout.height };
 
     //rending
+    console.log(backgroundHeightVideo);
     if (isFetching && !payload.listDetail) {
       return (
         <View style={[styles.centering, styles.waiting]}>
@@ -81,7 +82,7 @@ class Detail extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, backgroundHeightVideo]}>
         <VideoPlayer
           payload={payload}
           _layout={_layout}

@@ -34,7 +34,7 @@ function errorAfterFiveSeconds() {
   };
 }
 
-export function itemsFetchData(url) {
+export function itemsFetchDataHome(url) {
   let authorization = JSON.parse(Authorization.generate());
 
   return dispatch => {

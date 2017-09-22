@@ -28,6 +28,7 @@ import { BlurView } from "react-native-blur";
 import { pause } from "./actions";
 import AudioEpisodes from "./AudioEpisodes";
 import AudioRelated from "./AudioRelated";
+import AudioTimeLines from "./AudioTimeLines";
 import { Actions } from "react-native-router-flux";
 import { CHANGE_TYPES } from "../private/constants";
 import _ from "lodash";
@@ -127,13 +128,30 @@ export class Audio extends Component {
     // time = data.currentTime;
     // let currentTime = isNaN(player.currentTime) ? 0 : player.currentTime;
     // playSong(currentTime);
-    // console.log(currentTime);
   }
 
   onForward() {
-    const { changeCurrentItemPlay, player } = this.props;
+    const { changeCurrentItemPlay, player, payload } = this.props;
     let number = isNaN(player.currentItemPlay) ? 0 : player.currentItemPlay;
-    number = number + 1;
+    let data = "";
+    if (
+      payload.listAudio &&
+      payload.listAudio.episodes &&
+      payload.listAudio.episodes.length > 1
+    ) {
+      data = payload.listAudio.episodes;
+    } else {
+      data = payload.listAudio.related;
+    }
+    if (player.isRandom == true) {
+      number = this.getRandomIntInclusive(0, data.length - 1);
+    } else if (number + 1 == data.length) {
+      number = 0;
+    } else if (number > data.length) {
+      number = 0;
+    } else {
+      number = number + 1;
+    }
     changeCurrentItemPlay(
       number,
       player.paused,
@@ -142,90 +160,37 @@ export class Audio extends Component {
     );
   }
 
-  processWhenEnd = () => {
-    const { payload } = this.props;
-    const { isRandom, repeat, repeatNumber, currentItemPlay } = this.props;
-    let linkAudio = (name = "");
-    let idChild = 0;
-    let rowCurrentItemPlay = 0;
-    let data = null;
-    let autoContinue = false;
+  onEnd() {
+    const { player, repeatNumber, currentItemPlay, payload } = this.props;
+    if (repeatNumber == 0) {
+      this.onForward();
+    }
+  }
 
+  onPrev() {
+    const { changeCurrentItemPlay, player, payload } = this.props;
+    let number = isNaN(player.currentItemPlay) ? 0 : player.currentItemPlay;
+    let data = "";
     if (
-      payload.listAudio &&
-      payload.listAudio.timelines &&
-      payload.listAudio.timelines[0] &&
-      payload.listAudio.timelines[0].timeline &&
-      payload.listAudio.timelines[0].timeline.length > 1
-    ) {
-      data = payload.listAudio.timelines[0].timeline;
-    } else if (
       payload.listAudio &&
       payload.listAudio.episodes &&
       payload.listAudio.episodes.length > 1
     ) {
       data = payload.listAudio.episodes;
-      autoContinue = true;
-
-      if (data.length == parseInt(currentItemPlay) + 1) {
-        return false;
-      } else {
-        rowCurrentItemPlay = parseInt(currentItemPlay) + 1;
-      }
-    } else if (
-      payload.listAudio &&
-      payload.listAudio.series &&
-      payload.listAudio.series.length > 1
-    ) {
-      data = payload.listAudio.series;
-    }
-
-    if (!autoContinue && !isRandom && repeatNumber != 2) {
-      return false;
-    }
-
-    if (data.length == 2) {
-      rowCurrentItemPlay = currentItemPlay == 1 ? 0 : 1;
-    }
-
-    if (isRandom) {
-      rowCurrentItemPlay = this.getRandomIntInclusive(0, data.length - 1);
-    }
-
-    if (repeatNumber == 2) {
-      if (data.length == parseInt(currentItemPlay) + 1) {
-        rowCurrentItemPlay = 0;
-      } else {
-        rowCurrentItemPlay = parseInt(currentItemPlay) + 1;
-      }
-    }
-
-    this.changeLinkAudio({
-      submitted: true,
-      linkAudio: data[rowCurrentItemPlay].link,
-      albumName: data[rowCurrentItemPlay].name,
-      duration: 0,
-      currentTime: 0,
-      currentItemPlay: rowCurrentItemPlay
-    });
-  };
-
-  onEnd() {
-    const { player, repeatNumber, currentItemPlay, payload } = this.props;
-    console.log(this.state.repeat);
-    console.log(repeatNumber);
-    if (repeatNumber == 0) {
-      this.setState({ repeat: false });
-      this.onForward(player.currentItemPlay + 1);
     } else {
-      this.setState({ repeat: true });
+      data = payload.listAudio.related;
     }
-  }
-
-  onPrev() {
-    const { changeCurrentItemPlay, player } = this.props;
-    let number = isNaN(player.currentItemPlay) ? 0 : player.currentItemPlay;
-    changeCurrentItemPlay(number - 1);
+    if (player.isRandom == true) {
+      number = this.getRandomIntInclusive(0, data.length - 1);
+    } else {
+      number = number - 1;
+    }
+    changeCurrentItemPlay(
+      number,
+      player.paused,
+      player.repeatNumber,
+      player.isRandom
+    );
   }
 
   playOrPause() {
@@ -245,6 +210,12 @@ export class Audio extends Component {
     } else {
       return 0;
     }
+  }
+
+  getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   onProgressChanged(newPercent, paused) {
@@ -270,6 +241,7 @@ export class Audio extends Component {
 
   onRandom() {
     const { changeIsRanDom, player } = this.props;
+    this.setState({ repeat: false });
     changeIsRanDom(
       player.isRandom,
       player.repeatNumber,
@@ -281,20 +253,19 @@ export class Audio extends Component {
   onRepeat() {
     const { player, changeRepeatNumber } = this.props;
 
+    let isRandom = this.props.isRandom;
     let number = isNaN(player.repeatNumber) ? 0 : player.repeatNumber;
-
-    if (number == 2) {
+    if (number == 1) {
+      number = number + 1;
+    } else if (number == 2) {
       number = 0;
-      this.setState({ repeat: true });
+      this.setState({ repeat: false });
     } else {
       number = number + 1;
+      this.setState({ repeat: true });
+      isRandom = false;
     }
-    changeRepeatNumber(
-      number,
-      player.currentItemPlay,
-      player.paused,
-      player.isRandom
-    );
+    changeRepeatNumber(number, player.currentItemPlay, player.paused, isRandom);
   }
 
   render() {
@@ -311,7 +282,7 @@ export class Audio extends Component {
     let flexRemaining = 0;
     let linkAudio = "";
     let showDataRelate = "";
-    let isShowRelated = (showHideButtons = showHideOnlyRepeatOneButton = false);
+    let isShowRelated = (isLive = showHideButtons = showHideOnlyRepeatOneButton = false);
 
     let { duration, submitted, audioScale, currentTime } = this.state;
     //  let currentTime = player.currentTime || 0;
@@ -344,25 +315,148 @@ export class Audio extends Component {
         </View>
       );
     }
+    if (
+      payload.listAudio &&
+      payload.listAudio.actors &&
+      payload.listAudio.actors != "" &&
+      !isLive
+    ) {
+      if (typeof payload.listAudio.content.actors === "string") {
+        actors = payload.listAudio.content.actors;
+      } else {
+        let arrActors = [];
+        payload.listAudio.actors.map(function(data, value) {
+          arrActors.push(data.name);
+        });
+        actors = arrActors.join(", ");
+      }
+    }
+    if (
+      payload.listAudio &&
+      payload.listAudio.content &&
+      payload.listAudio.content.cat_id == 7 &&
+      isCurrentLive
+    ) {
+      if (
+        payload.listAudio &&
+        payload.listAudio.timelines &&
+        payload.listAudio.timelines.length > 0
+      ) {
+        dataItems = payload.listAudio.timelines[0].timeline;
+        linkImage = payload.listAudio.content.image;
+        isShowRelated = true;
+        showHideButtons = true;
 
-    if (payload.listAudio.episodes && payload.listAudio.episodes.length > 0) {
-      isShowRelated = true;
-      showHideButtons = true;
-      dataItems = payload.listAudio.episodes;
-      linkAudio = dataItems[currentItemPlay].link;
-      songName = dataItems[currentItemPlay].name;
-      albumName = payload.listAudio.content.name;
+        showDataRelate = (
+          <AudioTimeLines
+            timelines={payload.listAudio.timelines[0].timeline}
+            changeLinkAudio={this.changeLinkAudio}
+            currentItemPlay={currentItemPlay}
+            isCurrentLive={isCurrentLive}
+            isLive={isLive}
+            currentTime={currentTime}
+            paused={paused}
+            submitted={submitted}
+            id={dataItems[currentItemPlay].id}
+            payload={payload}
+          />
+        );
+      } else if (
+        payload.listAudio &&
+        payload.listAudio.episodes &&
+        payload.listAudio.episodes.length > 0
+      ) {
+        dataItems = payload.listAudio.episodes;
+        linkImage = payload.listAudio.content.image;
+        albumName = payload.listAudio.content.name;
+        songName = dataItems[currentItemPlay].name;
+        linkAudio = dataItems[currentItemPlay].link;
+        isShowRelated = true;
+        showHideButtons = true;
 
-      showDataRelate = (
-        <AudioEpisodes
-          submitted={submitted}
-          currentTime={this.state.currentTime}
-          player={player}
-          paused={this.state.paused}
-          id={dataItems[currentItemPlay].id}
-          {...this.props}
-        />
-      );
+        showDataRelate = (
+          <AudioEpisodes
+            submitted={submitted}
+            currentTime={currentTime}
+            changeCurrentItemPlay={this.props.changeCurrentItemPlay}
+            player={player}
+            paused={this.state.paused}
+            currentItemPlay={currentItemPlay}
+            id={dataItems[currentItemPlay].id}
+            changeLinkAudio={this.changeLinkAudio}
+            {...this.props}
+            payload={payload}
+          />
+        );
+      } else if (
+        payload.listAudio &&
+        payload.listAudio.related &&
+        payload.listAudio.related.length > 0
+      ) {
+        dataItems = payload.listAudio.related;
+        linkImage = payload.listAudio.content.image;
+        songName = dataItems[currentTime].name;
+        isShowRelated = true;
+        showHideButtons = false;
+        showHideOnlyRepeatOneButton = true;
+
+        showDataRelate = (
+          <AudioRelated
+            related={payload.listAudio.related}
+            currentItemPlay={currentItemPlay}
+            showHideButtons={showHideButtons}
+            submitted={submitted}
+            payload={payload}
+            player={player}
+          />
+        );
+      }
+    } else {
+      if (payload.listAudio.episodes && payload.listAudio.episodes.length > 0) {
+        isShowRelated = true;
+        showHideButtons = true;
+        dataItems = payload.listAudio.episodes;
+        linkImage = dataItems[currentItemPlay].image;
+        linkAudio = dataItems[currentItemPlay].link;
+        songName = dataItems[currentItemPlay].name;
+        albumName = payload.listAudio.content.name;
+
+        showDataRelate = (
+          <AudioEpisodes
+            submitted={submitted}
+            changeCurrentItemPlay={this.props.changeCurrentItemPlay}
+            player={player}
+            paused={this.state.paused}
+            currentItemPlay={currentItemPlay}
+            id={dataItems[currentItemPlay].id}
+            changeLinkAudio={this.changeLinkAudio}
+            payload={payload}
+            currentTime={this.state.currentTime}
+          />
+        );
+      } else if (
+        payload.listAudio &&
+        payload.listAudio.related &&
+        payload.listAudio.related.length > 0
+      ) {
+        dataItems = payload.listAudio.related;
+        linkImage = dataItems[currentItemPlay].image;
+        songName = dataItems[currentItemPlay].name;
+        linkAudio = dataItems[currentItemPlay].link;
+        isShowRelated = true;
+        showHideButtons = false;
+        albumName = "";
+        showDataRelate = (
+          <AudioRelated
+            currentItemPlay={currentItemPlay}
+            submitted={submitted}
+            currentTime={currentTime}
+            player={player}
+            payload={payload}
+            {...this.props}
+          />
+        );
+      }
     }
 
     return (
@@ -379,7 +473,7 @@ export class Audio extends Component {
         animation={scale}
       >
         <Image
-          source={{ uri: payload.listAudio.content.image }}
+          source={{ uri: linkImage }}
           style={{ flex: 1 }}
           blurRadius={100}
           onLoadEnd={e => this.setState({ imageBgLoading: false })}
@@ -474,7 +568,7 @@ export class Audio extends Component {
                     <View style={styles.wrapperAudioSwipper}>
                       <Animated.Image
                         source={{
-                          uri: payload.listAudio.content.image,
+                          uri: linkImage,
                           cache: "reload"
                         }}
                         style={[
@@ -487,7 +581,7 @@ export class Audio extends Component {
                             transform: [{ rotate: spin }]
                           }
                         ]}
-                        key={payload.listAudio.content.image}
+                        key={linkImage}
                         resizeMode="contain"
                       >
                         {(this.state.imageLoading || currentTime <= 0) &&
@@ -556,7 +650,8 @@ export class Audio extends Component {
                     height={height - 100}
                   >
                     <View style={styles.wrapperAudioSwipper}>
-                      {listAudio.content.lyric && listAudio.content.lyric != ""
+                      {payload.listAudio.content.lyric &&
+                      payload.listAudio.content.lyric != ""
                         ? <ScrollView
                             showsHorizontalScrollIndicator={false}
                             showsVerticalScrollIndicator={false}
@@ -573,7 +668,7 @@ export class Audio extends Component {
                                   }
                                 ]}
                               >
-                                {listAudio.content.lyric}
+                                {payload.listAudio.content.lyric}
                               </Text>
                             </View>
                           </ScrollView>
@@ -585,7 +680,7 @@ export class Audio extends Component {
                     <View style={styles.wrapperAudioSwipper}>
                       <Animated.Image
                         source={{
-                          uri: listAudio.content.image,
+                          uri: payload.listAudio.content.image,
                           cache: "reload"
                         }}
                         style={[

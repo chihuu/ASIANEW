@@ -61,6 +61,7 @@ class PlayerAudio extends Component {
           changeRepeatNumber={changeRepeatNumber}
           changePlayOrPause={changePlayOrPause}
           repeatNumber={repeatNumber}
+          {...this.props}
         />
       </View>
     );

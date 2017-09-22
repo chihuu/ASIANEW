@@ -87,19 +87,6 @@ export function changeCurrentTime(currentTime) {
   };
 }
 
-export function changeSelectedPlaylists(playlists, playlist) {
-  const index = playlists.indexOf(playlist);
-  if (index > -1) {
-    playlists.splice(index, 1);
-  }
-  playlists.push(playlist);
-
-  return {
-    type: types.CHANGE_SELECTED_PLAYLISTS,
-    playlists
-  };
-}
-
 export function changePlayerStatus(paused) {
   return {
     type: types.CHANGE_PLAYER_STATUS,

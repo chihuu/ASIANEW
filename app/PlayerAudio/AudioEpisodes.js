@@ -20,26 +20,29 @@ import { CachedImage } from "react-native-img-cache";
 import { Config } from "../common/config";
 
 export default class AudioEpisodes extends Component {
-  state = {
-    selected: (new Map(): Map<string, boolean>)
+  state = { selected: (new Map(): Map<string, boolean>) };
+
+  _keyExtractor = (item, index) => item.id;
+
+  changeLink = (item, index) => {
+    const { changeLinkAudio, player, changeCurrentItemPlay } = this.props;
+    changeCurrentItemPlay(
+      index,
+      player.paused,
+      player.repeatNumber,
+      player.isRandom
+    );
+    // changeLinkAudio({
+    //   submitted: true,
+    //   linkAudio: item.link,
+    //   audioName: item.name,
+    //   currentItemPlay: index,
+    //   paused: false,
+    //   duration: 0.0,
+    //   currentTime: 0.0,
+    //   isCurrentLive: false
+    // });
   };
-
-  changeLink = (content, index) => {
-    const { changeLinkAudio, player } = this.props;
-
-    changeLinkAudio({
-      submitted: true,
-      linkAudio: content.link,
-      audioName: content.name,
-      currentItemPlay: index,
-      paused: false,
-      duration: 0.0,
-      currentTime: 0.0,
-      isCurrentLive: false
-    });
-  };
-
-  _keyExtractor = (item, index) => item.objectID;
 
   _onPressItem = (id: string) => {
     // updater functions are preferred for transactional updates
@@ -53,8 +56,14 @@ export default class AudioEpisodes extends Component {
 
   _renderItem = ({ item, index }) => {
     let actors = "";
-    const { currentItemPlay, currentTime, player, id, submitted } = this.props;
-    let rowID = index;
+    const {
+      currentTime,
+      player,
+      id,
+      submitted,
+      currentItemPlay,
+      paused
+    } = this.props;
     if (item.actors && item.actors != "") {
       if (typeof item.actors === "string") {
         actors = item.actors;
@@ -69,16 +78,13 @@ export default class AudioEpisodes extends Component {
     return (
       <View key={item.id} style={styles.column}>
         <TouchableOpacity
-          key={rowID}
-          onPress={() => {
-            console.log(index);
-          }}
+          key={index}
+          onPress={() => this.changeLink(item, index)}
           style={[styles.row, styles.wrapperRelated]}
         >
           {!submitted
             ? id == item.id
               ? <View style={{ marginRight: 30, width: 35 }}>
-                  {console.log(currentTime)}
                   {currentTime == 0 || player.paused
                     ? <Image
                         source={Config.ICON_CURRENT_PAUSE}
@@ -93,10 +99,10 @@ export default class AudioEpisodes extends Component {
                 </View>
               : <View style={styles.wrapperTextCount}>
                   <Text style={styles.textCount}>
-                    {parseInt(rowID) + 1}
+                    {parseInt(index) + 1}
                   </Text>
                 </View>
-            : currentItemPlay == rowID
+            : currentItemPlay == index
               ? <View style={{ marginRight: 30, width: 35 }}>
                   {currentTime == 0 || player.paused
                     ? <Image
@@ -112,7 +118,7 @@ export default class AudioEpisodes extends Component {
                 </View>
               : <View style={styles.wrapperTextCount}>
                   <Text style={styles.textCount}>
-                    {parseInt(rowID) + 1}
+                    {parseInt(index) + 1}
                   </Text>
                 </View>}
           <View style={[{ justifyContent: "center", flex: 1 }]}>
@@ -139,7 +145,7 @@ export default class AudioEpisodes extends Component {
   };
 
   render() {
-    const { payload, dataItems } = this.props;
+    const { payload, currentItemPlay, currentTime, player } = this.props;
     let data = payload.listAudio.episodes;
     return (
       payload.listAudio.episodes &&
@@ -152,6 +158,9 @@ export default class AudioEpisodes extends Component {
           extraData={this.state}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
+          currentItemPlay={currentItemPlay}
+          currentTime={currentTime}
+          paused={player.paused}
         />
       </View>
     );

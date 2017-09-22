@@ -276,7 +276,8 @@ export default class ProgressAudio extends Component {
       showHideOnlyRepeatOneButton,
       notShowShuffle,
       isRandom,
-      currentItemPlay
+      currentItemPlay,
+      dataItems
     } = this.props;
     let panResponder =
       isCurrentLive && !submitted ? null : this.holderPanResponder.panHandlers;

@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import styles from "../../styles/Styles";
 import { Icon } from "react-native-elements";
+import { Actions } from "react-native-router-flux";
 import { Config } from "../../common/config";
 import { CachedImage } from "react-native-img-cache";
 
@@ -143,6 +144,10 @@ export default class Progress extends Component {
     return (
       !hideProgress &&
       <View style={{ flex: 1 }}>
+        <TouchableOpacity
+          style={styles.leftNavButtonRadio}
+          onPress={Actions.pop}
+        />
         <View style={[styles.playerContainer, styles.row]}>
           <Text
             style={[

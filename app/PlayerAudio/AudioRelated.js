@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   ListView,
+  FlatList,
   InteractionManager
 } from "react-native";
 import styles from "../styles/Styles";
@@ -19,37 +20,51 @@ import { CachedImage } from "react-native-img-cache";
 import { Config } from "../common/config";
 
 export default class AudioRelated extends Component {
-  changeLink = idChild => {
-    const { fetchAudio } = this.props;
+  state = { selected: (new Map(): Map<string, boolean>) };
 
-    fetchAudio({
-      idChild: idChild,
-      showAudio: true
-    });
+  _keyExtractor = (item, index) => item.id;
+  changeLink = index => {
+    const {
+      itemsFetchDataPlayerAudio,
+      changeCurrentItemPlay,
+      player
+    } = this.props;
+    changeCurrentItemPlay(
+      index,
+      player.paused,
+      player.repeatNumber,
+      player.isRandom
+    );
+    //itemsFetchDataPlayerAudio(idChild);
+    // fetchAudio({
+    //   idChild: idChild,
+    //   showAudio: true
+    // });
   };
 
-  _renderRow(rowData, sectionID, rowID) {
+  _renderItem = ({ item, index }) => {
     return (
-      <View key={rowID} style={styles.column}>
+      <View key={index} style={styles.column}>
         <TouchableOpacity
-          key={rowID}
-          onPress={() => this.changeLink(rowData.id)}
+          key={index}
+          onPress={() => this.changeLink(index)}
           style={[styles.row, styles.wrapperRelated]}
         >
-          <View style={styles.wrapperTextCount}>
-            <Text style={styles.textCount}>
-              {parseInt(rowID) + 1}
-            </Text>
-            <Text>454455</Text>
+          <View style={{ marginRight: 30, width: 35 }}>
+            <View style={styles.wrapperTextCount}>
+              <Text style={styles.textCount}>
+                {parseInt(index) + 1}
+              </Text>
+            </View>
           </View>
           <View style={[{ justifyContent: "center", flex: 1 }]}>
-            {rowData.name
+            {item.name
               ? <Text
                   style={[styles.titleAudio, { lineHeight: 32 }]}
                   ellipsizeMode="tail"
                   numberOfLines={1}
                 >
-                  {rowData.name}
+                  {item.name}
                 </Text>
               : null}
             {
@@ -58,30 +73,38 @@ export default class AudioRelated extends Component {
                 ellipsizeMode="tail"
                 numberOfLines={1}
               >
-                {rowData.actors || "Unknown Artist"}
+                {item.actors || "Unknown Artist"}
               </Text>
             }
           </View>
         </TouchableOpacity>
       </View>
     );
-  }
+  };
 
   render() {
-    let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-
+    const {
+      payload,
+      currentItemPlay,
+      currentTime,
+      player,
+      isCurrentLive
+    } = this.props;
+    let data = payload.listAudio.related;
     return (
-      this.props.payload.related &&
       <View>
         <View style={styles.sectionTitleAudioWrapper}>
           <Text style={styles.sectionTitleAudio}>RELATED</Text>
         </View>
-        <ListView
-          dataSource={ds.cloneWithRows(this.props.payload.related)}
-          pageSize={6}
-          initialListSize={8}
-          contentContainerStyle={{ paddingBottom: 30 }}
-          renderRow={this._renderRow.bind(this)}
+        <FlatList
+          data={data}
+          extraData={this.state}
+          keyExtractor={this._keyExtractor}
+          renderItem={this._renderItem}
+          currentItemPlay={currentItemPlay}
+          currentTime={currentTime}
+          isCurrentLive={isCurrentLive}
+          paused={player.paused}
         />
       </View>
     );

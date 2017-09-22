@@ -28,13 +28,12 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    const { itemsFetchData } = this.props;
-    itemsFetchData();
+    const { itemsFetchDataHome } = this.props;
+    itemsFetchDataHome();
   }
 
   render() {
     const { payload, height, isFetching } = this.props;
-
     return (
       <View style={styles.container}>
         {!isFetching && payload.dataHome
