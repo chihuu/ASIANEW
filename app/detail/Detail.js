@@ -58,7 +58,8 @@ class Detail extends Component {
       imageDeviceLanscape,
       presentFullscreenVideoPlayer,
       isFetching,
-      chromecastId
+      chromecastId,
+      hide
     } = this.props;
 
     let paddingTop = isFullscreen ? 0 : 64;
@@ -69,10 +70,11 @@ class Detail extends Component {
       : styles.backgroundVideoFull;
     let backgroundHeightVideo = !isFullscreen
       ? { height: _layout.width / 16 * 9 }
-      : { height: _layout.height };
+      : { height: _layout.width };
 
-    //rending
     console.log(backgroundHeightVideo);
+    console.log(_layout.newWidthProgress);
+    //rending
     if (isFetching && !payload.listDetail) {
       return (
         <View style={[styles.centering, styles.waiting]}>
@@ -82,7 +84,7 @@ class Detail extends Component {
     }
 
     return (
-      <View style={[styles.container, backgroundHeightVideo]}>
+      <View style={[styles.container]}>
         <VideoPlayer
           payload={payload}
           _layout={_layout}
@@ -90,6 +92,8 @@ class Detail extends Component {
           backgroundHeightVideo={backgroundHeightVideo}
           presentFullscreenVideoPlayer={presentFullscreenVideoPlayer}
           isFullscreen={isFullscreen}
+          isFetching={isFetching}
+          hide={hide}
         />
         {!isFullscreen && <TabsWrapper {...this.props} />}
       </View>

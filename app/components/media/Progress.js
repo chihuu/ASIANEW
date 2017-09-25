@@ -69,7 +69,6 @@ export default class Progress extends Component {
 
   notifyPercentChange(newPercent, paused) {
     let { onNewPercent } = this.props;
-    console.log(onNewPercent);
     if (onNewPercent instanceof Function) {
       onNewPercent(newPercent, paused);
     }
@@ -140,14 +139,9 @@ export default class Progress extends Component {
       categoryId,
       _layout
     } = this.props;
-
     return (
       !hideProgress &&
       <View style={{ flex: 1 }}>
-        <TouchableOpacity
-          style={styles.leftNavButtonRadio}
-          onPress={Actions.pop}
-        />
         <View style={[styles.playerContainer, styles.row]}>
           <Text
             style={[

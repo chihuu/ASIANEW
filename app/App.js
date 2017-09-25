@@ -51,16 +51,20 @@ import Orientation from "react-native-orientation";
 console.disableYellowBox = true;
 
 class App extends Component {
-  state = {
-    loading: true,
-    isLogin: false,
-    userInfo: null,
-    dataAudio: {
-      showAudio: false,
-      isPlaylist: false
-    },
-    _layout: null
-  };
+  constructor(props) {
+    super(props);
+    state = {
+      loading: true,
+      isLogin: false,
+      userInfo: null,
+      hide: false,
+      dataAudio: {
+        showAudio: false,
+        isPlaylist: false
+      },
+      _layout: null
+    };
+  }
 
   componentWillMount() {
     Orientation.lockToPortrait();
@@ -116,9 +120,13 @@ class App extends Component {
     this.setState(userInfo);
   };
 
+  hideNav() {
+    this.setState({ hide: !this.state.hide });
+  }
+
   render() {
     const { isLogin, userInfo } = this.state;
-
+    console.log(this.props);
     if (this.state.loading) {
       return (
         <View>
@@ -166,6 +174,8 @@ class App extends Component {
                       <Scene
                         key="detail"
                         component={Detail}
+                        hide={this.hideNav.bind(this)}
+                        hideNavBar={this.state.hide}
                         leftTitle="Back"
                         onLeft={Actions.pop}
                         title="Detail"

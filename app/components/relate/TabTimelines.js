@@ -131,6 +131,7 @@ export default class TabTimelines extends Component {
   }
 
   render() {
+    const { _layout } = this.props.screenProps;
     return (
       <View style={[styles.timelinesContainer]}>
         <ListView
@@ -139,7 +140,7 @@ export default class TabTimelines extends Component {
           contentContainerStyle={{
             paddingLeft: 7,
             paddingTop: 7,
-            height: height + 100,
+            height: _layout.height + 100,
             flexDirection: "row",
             flexWrap: "wrap"
           }}

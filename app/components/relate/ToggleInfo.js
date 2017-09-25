@@ -10,7 +10,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import styles from "../../styles/Styles";
-
+import { Actions } from "react-native-router-flux";
 import { CachedImage } from "react-native-img-cache";
 
 export default class ToggleInfo extends Component {
@@ -27,7 +27,7 @@ export default class ToggleInfo extends Component {
   }
 
   createItem = dataRelate => {
-    const { width, height, onInfo } = this.props;
+    const { width, height, onInfo, changeLink } = this.props;
 
     let items = [];
     let text = "";
@@ -67,11 +67,11 @@ export default class ToggleInfo extends Component {
             {text}
           </Text>
           <TouchableOpacity
-            onPress={() => onInfo()}
+            onPress={onInfo}
             style={{ alignItems: "flex-end", flex: 1 }}
           >
             <Image
-              source={require("../../common/images/player/close_button@2x.png")}
+              source={require("../../common/images/player/close_button.png")}
               style={{ width: 32, height: 32 }}
             />
           </TouchableOpacity>
@@ -79,7 +79,9 @@ export default class ToggleInfo extends Component {
         {items.map((item, index) => {
           return (
             <TouchableOpacity
-              onPress={() => this.handleNavButtonPress(item.id)}
+              onPress={() => {
+                Actions.detail({ idChild: item.id });
+              }}
               key={item.id + "_" + index}
             >
               <View
@@ -139,11 +141,8 @@ export default class ToggleInfo extends Component {
     );
   };
 
-  handleNavButtonPress = idChild => {};
-
   render() {
     const { width, height } = this.props;
-
     return (
       <ScrollView
         showsHorizontalScrollIndicator={false}

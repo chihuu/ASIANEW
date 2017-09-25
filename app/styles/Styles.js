@@ -245,13 +245,7 @@ export default StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 10
   },
-  leftNavButtonVideo: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-    marginLeft: 20,
-    marginRight: 10,
-    backgroundColor: "transparent"
-  },
+
   leftNavButtonRadio: {
     flexDirection: "column",
     alignItems: "flex-start",

@@ -30,7 +30,7 @@ export function getSize(width, height) {
   const newHeightContainerImageSize = (width - 14) * 0.5 / 16 * 9;
   const newWidthTimeLines = width / 2 - 20;
   const newHeightTimeLines = (width / 2 - 20) / 16 * 9;
-  const newWidthProgress = width / 32 * 9 - 10;
+  const newWidthProgress = width / 16 * 9 / 2;
 
   return {
     size: { width: width, height: newHeightSlider },
@@ -87,7 +87,7 @@ export function getSizeSmall(width, height) {
   const newHeightContainerImageSize = (width - 14) * 0.5 / 16 * 9;
   const newWidthTimeLines = width / 2 - 20;
   const newHeightTimeLines = (width / 2 - 20) / 16 * 9;
-  const newWidthProgress = width / 32 * 9 - 10;
+  const newWidthProgress = width / 16 * 9 / 2;
 
   return {
     sizeContainer: { width: newWidth, height: newHeight + 15 },
